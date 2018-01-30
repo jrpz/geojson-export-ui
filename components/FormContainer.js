@@ -26,7 +26,16 @@ class FormContainer extends Component {
 
   renderLocation(location) {
     return (
-      <div key={location.id}>{location.place_name}</div>
+      <div key={location.id}>
+        {location.place_name}
+        <style jsx>{`
+          div {
+            margin: 0.5rem auto;
+            border-bottom: 1px solid #009;
+            padding-bottom: 0.5rem;
+          }
+        `}</style>
+      </div>
     )
   }
 }

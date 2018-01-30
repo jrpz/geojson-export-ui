@@ -21,6 +21,7 @@ class App extends React.Component {
         <Head>
           <title>GeoJSON Exporter</title>
           <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet" />
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css' rel='stylesheet' />
         </Head>
 
         <section>

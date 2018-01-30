@@ -73,6 +73,7 @@ export default class AddLocation extends Component {
         <style jsx>{`
           border-bottom: 1px solid whitesmoke
           padding: 1rem 0;
+          cursor: pointer;
         `}</style>
       </div>
     )
@@ -86,7 +87,7 @@ export default class AddLocation extends Component {
         {results.features.map(this.renderLocation.bind(this))}
         <style jsx>{`
           div {
-            font-size: 1.2rem;
+            font-size: 1.0rem;
             margin: 0.5rem auto;
           }
         `}</style>
