@@ -3,13 +3,19 @@ import { formStyles } from '../lib/styles'
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addLocation } from '../lib/store'
+import { addLocation, setRoute } from '../lib/store'
 
 import AddLocation from '../components/AddLocation'
+import Exporter from '../components/Exporter'
 
 class FormContainer extends Component {
   render() {
-    const { addLocation, locations } = this.props
+    const {
+      addLocation,
+      locations,
+      setRoute
+    } = this.props
+
     return (
       <div className="formContainer">
         <div className="formContainer__title">Locations</div>
@@ -19,6 +25,8 @@ class FormContainer extends Component {
         </div>
 
         <AddLocation addLocation={addLocation} />
+        <Exporter locations={locations} setRoute={setRoute} />
+
         <style jsx>{formStyles}</style>
       </div>
     )
@@ -30,9 +38,8 @@ class FormContainer extends Component {
         {location.place_name}
         <style jsx>{`
           div {
-            margin: 0.5rem auto;
             border-bottom: 1px solid #009;
-            padding-bottom: 0.5rem;
+            padding: 1rem;
           }
         `}</style>
       </div>
@@ -44,7 +51,8 @@ const mapStateToProps = ({ locations }) => ({ locations })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addLocation: bindActionCreators(addLocation, dispatch)
+    addLocation: bindActionCreators(addLocation, dispatch),
+    setRoute: bindActionCreators(setRoute, dispatch)
   }
 }
 

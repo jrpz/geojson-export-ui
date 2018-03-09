@@ -20,7 +20,7 @@ class MapContainer extends Component {
 
   componentDidMount() {
     const { lat, lng, zoom } = this.state
-    const { locations } = this.props
+    const { locations, route } = this.props
 
     const map = new mapboxgl.Map({
       container: this.mapEl,
@@ -33,15 +33,40 @@ class MapContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { locations, route } = this.props
     const prevLocations = prevProps.locations
-    const { locations } = this.props
+    const prevRoute = prevProps.route
     const locationsUpdated = prevLocations.length != locations.length
+    const routeUpdated = prevRoute != route
 
     if (locationsUpdated) {
       locations.map(l => {
         const marker = new mapboxgl.Marker()
           .setLngLat(l.center)
           .addTo(this.map);
+      })
+    }
+
+    if (routeUpdated) {
+      this.map.addLayer({
+        id: 'route',
+        type: 'line',
+        source: {
+          type: 'geojson',
+          data: {
+            type: 'Feature',
+            properties: {},
+            geometry: route.geometry
+          }
+        },
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#800',
+          'line-width': 8
+        }
       })
     }
   }
@@ -68,6 +93,6 @@ class MapContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ locations }) => ({ locations })
+const mapStateToProps = ({ locations, route }) => ({ locations, route })
 
 export default connect(mapStateToProps, null)(MapContainer)

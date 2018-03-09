@@ -15,12 +15,19 @@ export default class AddLocation extends Component {
 
     this.state = {
       location: '',
-      results: []
+      results: {}
     }
 
     this.handleAddLocation = this.handleAddLocation.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
     this.renderResults = this.renderResults.bind(this)
+  }
+
+  handleAddLocation(location) {
+    const { addLocation } = this.props
+    this.setState({ results: [] })
+    addLocation(location)
   }
 
   handleChange(e) {
@@ -28,10 +35,11 @@ export default class AddLocation extends Component {
     this.setState({ location: value })
   }
 
-  handleAddLocation(location) {
-    const { addLocation } = this.props
-    this.setState({ results: [] })
-    addLocation(location)
+  handleKeyPress(e) {
+    const { location } = this.state
+    if (e.keyCode === 13) {
+      this.handleSearch()
+    }
   }
 
   handleSearch() {
@@ -50,9 +58,9 @@ export default class AddLocation extends Component {
           type="text"
           value={location}
           onChange={this.handleChange}
+          onKeyDown={this.handleKeyPress.bind(this)}
+          placeholder="Search..."
         />
-
-        <button onClick={this.handleSearch.bind(this)}>Search</button>
 
         {hasResults(results) && this.renderResults()}
 
@@ -71,9 +79,11 @@ export default class AddLocation extends Component {
       >
         {place_name}
         <style jsx>{`
-          border-bottom: 1px solid whitesmoke
-          padding: 1rem 0;
-          cursor: pointer;
+          div {
+            border-bottom: 1px solid #009;
+            padding: 1rem;
+            cursor: pointer;
+          }
         `}</style>
       </div>
     )
@@ -89,6 +99,8 @@ export default class AddLocation extends Component {
           div {
             font-size: 1.0rem;
             margin: 0.5rem auto;
+            border: 1px solid #009;
+            border-bottom: none;
           }
         `}</style>
       </div>
