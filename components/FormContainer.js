@@ -18,14 +18,16 @@ class FormContainer extends Component {
 
     return (
       <div className="formContainer">
-        <div className="formContainer__title">Locations</div>
+        <div className="formContainer__title">Route Cities</div>
 
         <div className="formContainer__locations">
           {locations.map(this.renderLocation)}
         </div>
 
         <AddLocation addLocation={addLocation} />
-        <Exporter locations={locations} setRoute={setRoute} />
+
+        { locations.length > 1 &&
+          <Exporter locations={locations} setRoute={setRoute} /> }
 
         <style jsx>{formStyles}</style>
       </div>

@@ -97,7 +97,7 @@ export default class AddLocation extends Component {
         {results.features.map(this.renderLocation.bind(this))}
         <style jsx>{`
           div {
-            font-size: 1.0rem;
+            font-size: 1.4rem;
             margin: 0.5rem auto;
             border: 1px solid #009;
             border-bottom: none;

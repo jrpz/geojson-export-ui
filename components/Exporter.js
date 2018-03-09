@@ -18,7 +18,7 @@ export default class Exporter extends Component {
   render() {
     return (
       <button onClick={this.handleClick.bind(this)}>
-        <span>Export</span>
+        <span>Draw Route</span>
         <style jsx>{`
           button {
             border: 1px solid #009;

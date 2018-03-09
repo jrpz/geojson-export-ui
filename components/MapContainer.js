@@ -22,14 +22,12 @@ class MapContainer extends Component {
     const { lat, lng, zoom } = this.state
     const { locations, route } = this.props
 
-    const map = new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       container: this.mapEl,
       style: 'mapbox://styles/mapbox/streets-v9',
       center: [lng, lat],
       zoom
     })
-
-    this.map = map
   }
 
   componentDidUpdate(prevProps) {
