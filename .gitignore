@@ -3,3 +3,4 @@ env-config.js
 .next/
 .now
 now.json
+yarn-error.log
