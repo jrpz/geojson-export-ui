@@ -1,17 +1,24 @@
 import { bodyStyle } from '../lib/styles'
 
 import React from 'react'
+import { connect } from 'react-redux'
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 
-import { bindActionCreators } from 'redux'
 import { initStore, addLocation } from '../lib/store'
-import withRedux from 'next-redux-wrapper'
 
 import FormContainer from '../components/FormContainer'
-import MapContainer from '../components/MapContainer'
+
+const MapContainer = dynamic(
+  import('../components/MapContainer'),
+  { ssr: false }
+)
 
 class App extends React.Component {
-  static getInitialProps({ store, isServer }) {
+  static getInitialProps({ reduxStore, req }) {
+    const isServer = !!req
+    console.log({ reduxStore })
+
     return { isServer }
   }
 
@@ -39,4 +46,4 @@ class App extends React.Component {
 }
 
 
-export default withRedux(initStore, null, null)(App)
+export default connect()(App)

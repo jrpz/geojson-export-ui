@@ -9,10 +9,9 @@
   "dependencies": {
     "crocks": "^0.8.4",
     "lodash.debounce": "^4.0.8",
-    "mapbox": "^1.0.0-beta9",
-    "mapbox-gl": "^0.44.0",
-    "next": "^4.2.3",
-    "next-redux-wrapper": "^1.0.0",
+    "mapbox": "^1.0.0-beta10",
+    "mapbox-gl": "^0.45.0",
+    "next": "^6.0.0",
     "promisify-node": "^0.4.0",
     "ramda": "^0.25.0",
     "react": "^16.2.0",
