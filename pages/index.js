@@ -17,8 +17,6 @@ const MapContainer = dynamic(
 class App extends React.Component {
   static getInitialProps({ reduxStore, req }) {
     const isServer = !!req
-    console.log({ reduxStore })
-
     return { isServer }
   }
 
