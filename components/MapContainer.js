@@ -1,4 +1,3 @@
-import { formStyles } from '../lib/styles'
 import mapboxgl from 'mapbox-gl'
 
 import { Component } from 'react'
@@ -14,13 +13,13 @@ class MapContainer extends Component {
     this.state = {
       lng: -76,
       lat: 36,
-      zoom: 3
+      zoom: 4
     }
   }
 
   componentDidMount() {
     const { lat, lng, zoom } = this.state
-    const { locations, route } = this.props
+    const { waypoints, route } = this.props
 
     this.map = new mapboxgl.Map({
       container: this.mapEl,
@@ -31,14 +30,14 @@ class MapContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { locations, route } = this.props
-    const prevLocations = prevProps.locations
+    const { waypoints, route } = this.props
+    const prevWaypoints = prevProps.waypoints
     const prevRoute = prevProps.route
-    const locationsUpdated = prevLocations.length != locations.length
+    const waypointsUpdated = prevWaypoints.length != waypoints.length
     const routeUpdated = prevRoute != route
 
-    if (locationsUpdated) {
-      locations.map(l => {
+    if (waypointsUpdated) {
+      waypoints.map(l => {
         const marker = new mapboxgl.Marker()
           .setLngLat(l.center)
           .addTo(this.map);
@@ -84,13 +83,13 @@ class MapContainer extends Component {
     )
   }
 
-  renderLocation(location) {
+  renderWaypoint(waypoint) {
     return (
-      <div key={location.id}>{location.place_name}</div>
+      <div key={waypoint.id}>{waypoint.place_name}</div>
     )
   }
 }
 
-const mapStateToProps = ({ locations, route }) => ({ locations, route })
+const mapStateToProps = ({ waypoints, route }) => ({ waypoints, route })
 
 export default connect(mapStateToProps, null)(MapContainer)

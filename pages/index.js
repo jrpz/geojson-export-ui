@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
 
-import { initStore, addLocation } from '../lib/store'
+import { initStore, addWaypoint } from '../lib/store'
 
 import FormContainer from '../components/FormContainer'
 
@@ -30,7 +30,7 @@ class App extends React.Component {
         </Head>
 
         <section className="left">
-          <FormContainer addLocation={this.props.addLocation} />
+          <FormContainer addWaypoint={this.props.addWaypoint} />
         </section>
 
         <section className="right">

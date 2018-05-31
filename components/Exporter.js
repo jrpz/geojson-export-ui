@@ -8,9 +8,9 @@ export default class Exporter extends Component {
   }
 
   handleClick(e) {
-    const { locations, setRoute } = this.props
+    const { waypoints, setRoute } = this.props
 
-    getDirections(locations)
+    getDirections(waypoints)
       .then(r => setRoute(r.entity.routes[0]))
       .catch(err => console.log('Error: ', err))
   }
@@ -24,7 +24,7 @@ export default class Exporter extends Component {
             border: 1px solid #009;
             background-color: #090;
             height: 5rem;
-            width: 100%
+            width: 100%;
             cursor: pointer;
             bottom: 0;
           }

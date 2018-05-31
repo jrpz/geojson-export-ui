@@ -1,81 +1,97 @@
 import debounce from 'lodash.debounce'
 import isEmpty from 'ramda/src/isEmpty'
 
-import { searchLocation } from '../lib/mapbox'
+import { searchWaypoint } from '../lib/mapbox'
 
 import { Component } from 'react'
-import { addLocationStyle } from '../lib/styles'
 
 const hasResults = results =>
   results.type === 'FeatureCollection'
 
-export default class AddLocation extends Component {
+export default class AddWaypoint extends Component {
   constructor() {
     super()
 
     this.state = {
-      location: '',
+      waypoint: '',
       results: {}
     }
 
-    this.handleAddLocation = this.handleAddLocation.bind(this)
+    this.handleAddWaypoint = this.handleAddWaypoint.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.renderResults = this.renderResults.bind(this)
   }
 
-  handleAddLocation(location) {
-    const { addLocation } = this.props
+  handleAddWaypoint(waypoint) {
+    const { addWaypoint } = this.props
     this.setState({ results: [] })
-    addLocation(location)
+    addWaypoint(waypoint)
   }
 
   handleChange(e) {
     const { value } = e.target
-    this.setState({ location: value })
+    this.setState({ waypoint: value })
+  }
+
+  handleFocus(e) {
+    this.setState({ waypoint: '' })
   }
 
   handleKeyPress(e) {
-    const { location } = this.state
+    const { waypoint } = this.state
     if (e.keyCode === 13) {
       this.handleSearch()
     }
   }
 
   handleSearch() {
-    const { location } = this.state
-    searchLocation(location)
+    const { waypoint } = this.state
+    searchWaypoint(waypoint)
       .then(results => this.setState({ results: results.entity }))
       .catch(err => console.log('err', err))
   }
 
   render() {
-    const { location, results } = this.state
+    const { waypoint, results } = this.state
 
     return (
-      <div className="addLocation">
+      <div className="addWaypoint">
         <input
           type="text"
-          value={location}
+          value={waypoint}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyPress.bind(this)}
+          onFocus={this.handleFocus.bind(this)}
           placeholder="Search..."
         />
 
         {hasResults(results) && this.renderResults()}
 
-        <style jsx>{addLocationStyle}</style>
+        <style jsx>{`
+          .addWaypoint {
+            padding: 1.5rem 0;
+          }
+
+          input {
+            width: 100%;
+            border: none;
+            height: 4rem;
+            padding: 1rem;
+            font-size: 1.6rem;
+          }
+        `}</style>
       </div>
     )
   }
 
-  renderLocation(location) {
-    const { id, place_name } = location
+  renderWaypoint(waypoint) {
+    const { id, place_name } = waypoint
     return (
       <div
-        className="addLocation__location"
+        className="addWaypoint__waypoint"
         key={id}
-        onClick={() => this.handleAddLocation(location)}
+        onClick={() => this.handleAddWaypoint(waypoint)}
       >
         {place_name}
         <style jsx>{`
@@ -93,8 +109,8 @@ export default class AddLocation extends Component {
     const { results } = this.state
 
     return (
-      <div className="addLocation__results">
-        {results.features.map(this.renderLocation.bind(this))}
+      <div className="addWaypoint__results">
+        {results.features.map(this.renderWaypoint.bind(this))}
         <style jsx>{`
           div {
             font-size: 1.4rem;

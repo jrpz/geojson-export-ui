@@ -1,43 +1,63 @@
-import { formStyles } from '../lib/styles'
-
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addLocation, setRoute } from '../lib/store'
+import { addWaypoint, setRoute } from '../lib/store'
 
-import AddLocation from '../components/AddLocation'
+import AddWaypoint from '../components/AddWaypoint'
 import Exporter from '../components/Exporter'
 
 class FormContainer extends Component {
   render() {
     const {
-      addLocation,
-      locations,
+      addWaypoint,
+      waypoints,
       setRoute
     } = this.props
 
     return (
       <div className="formContainer">
-        <div className="formContainer__title">Route Cities</div>
+        <div className="formContainer__title">Route Waypoints</div>
 
-        <div className="formContainer__locations">
-          {locations.map(this.renderLocation)}
+        <div className="formContainer__waypoints">
+          {waypoints.map(this.renderWaypoint)}
         </div>
 
-        <AddLocation addLocation={addLocation} />
+        <AddWaypoint addWaypoint={addWaypoint} />
 
-        { locations.length > 1 &&
-          <Exporter locations={locations} setRoute={setRoute} /> }
+        { waypoints.length > 1 &&
+          <Exporter waypoints={waypoints} setRoute={setRoute} /> }
 
-        <style jsx>{formStyles}</style>
+          <style jsx>{`
+            .formContainer {
+              height: 100%;
+              background-color: #174291;
+              color: #fafafa;
+              padding: 2rem;
+            }
+
+            .formContainer__title {
+              font-size: 2rem;
+              margin-bottom: 1rem;
+            }
+
+            .formContainer__waypoints {
+              border: 1px solid #009;
+              border-bottom: none;
+            }
+
+            .formContainer__waypoints div {
+              margin: 0.5rem auto;
+              background: pink;
+            }
+          `}</style>
       </div>
     )
   }
 
-  renderLocation(location) {
+  renderWaypoint(waypoint) {
     return (
-      <div key={location.id}>
-        {location.place_name}
+      <div key={waypoint.id}>
+        {waypoint.place_name}
         <style jsx>{`
           div {
             border-bottom: 1px solid #009;
@@ -49,11 +69,11 @@ class FormContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ locations }) => ({ locations })
+const mapStateToProps = ({ waypoints }) => ({ waypoints })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addLocation: bindActionCreators(addLocation, dispatch),
+    addWaypoint: bindActionCreators(addWaypoint, dispatch),
     setRoute: bindActionCreators(setRoute, dispatch)
   }
 }
