@@ -63,7 +63,7 @@ export default class AddWaypoint extends Component {
           onChange={this.handleChange}
           onKeyDown={this.handleKeyPress.bind(this)}
           onFocus={this.handleFocus.bind(this)}
-          placeholder="Search..."
+          placeholder="Enter waypoint..."
         />
 
         {hasResults(results) && this.renderResults()}

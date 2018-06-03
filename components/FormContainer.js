@@ -5,13 +5,15 @@ import { addWaypoint, setRoute } from '../lib/store'
 
 import AddWaypoint from '../components/AddWaypoint'
 import Exporter from '../components/Exporter'
+import GeoData from '../components/GeoData'
 
 class FormContainer extends Component {
   render() {
     const {
       addWaypoint,
       waypoints,
-      setRoute
+      setRoute,
+      route
     } = this.props
 
     return (
@@ -24,32 +26,38 @@ class FormContainer extends Component {
 
         <AddWaypoint addWaypoint={addWaypoint} />
 
-        { waypoints.length > 1 &&
-          <Exporter waypoints={waypoints} setRoute={setRoute} /> }
+        {
+          waypoints.length > 1 &&
+          <Exporter
+            waypoints={waypoints}
+            setRoute={setRoute} />
+        }
 
-          <style jsx>{`
-            .formContainer {
-              height: 100%;
-              background-color: #174291;
-              color: #fafafa;
-              padding: 2rem;
-            }
+        { route && <GeoData route={route} /> }
 
-            .formContainer__title {
-              font-size: 2rem;
-              margin-bottom: 1rem;
-            }
+        <style jsx>{`
+          .formContainer {
+            height: 100%;
+            background-color: #174291;
+            color: #fafafa;
+            padding: 2rem;
+          }
 
-            .formContainer__waypoints {
-              border: 1px solid #009;
-              border-bottom: none;
-            }
+          .formContainer__title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+          }
 
-            .formContainer__waypoints div {
-              margin: 0.5rem auto;
-              background: pink;
-            }
-          `}</style>
+          .formContainer__waypoints {
+            border: 1px solid #009;
+            border-bottom: none;
+          }
+
+          .formContainer__waypoints div {
+            margin: 0.5rem auto;
+            background: pink;
+          }
+        `}</style>
       </div>
     )
   }
@@ -69,12 +77,13 @@ class FormContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ waypoints }) => ({ waypoints })
+const mapStateToProps =
+  ({ waypoints, route }) => ({ waypoints, route })
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addWaypoint: bindActionCreators(addWaypoint, dispatch),
-    setRoute: bindActionCreators(setRoute, dispatch)
+    setRoute: bindActionCreators(setRoute, dispatch),
   }
 }
 

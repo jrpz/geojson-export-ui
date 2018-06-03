@@ -4,6 +4,8 @@ import { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import drawRoute from '../lib/drawRoute'
+
 mapboxgl.accessToken = process.env.MAPBOX_API_TOKEN
 
 class MapContainer extends Component {
@@ -45,26 +47,7 @@ class MapContainer extends Component {
     }
 
     if (routeUpdated) {
-      this.map.addLayer({
-        id: 'route',
-        type: 'line',
-        source: {
-          type: 'geojson',
-          data: {
-            type: 'Feature',
-            properties: {},
-            geometry: route.geometry
-          }
-        },
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        paint: {
-          'line-color': '#800',
-          'line-width': 8
-        }
-      })
+      this.map.addLayer(drawRoute(route))
     }
   }
 
