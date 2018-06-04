@@ -5,7 +5,7 @@ export default ({ route }) =>
   <div>
     <textarea
       readOnly={true}
-      value={JSON.stringify(route)}
+      value={JSON.stringify(drawRoute(route))}
     />
 
     <style jsx>{`
